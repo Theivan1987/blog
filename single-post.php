@@ -67,50 +67,17 @@
                     <p><?php echo($singlePost['body']) ?></p>
                     
                 </div>
-            <?php
-                if (isset($_GET['post_id'])) {
+                <h3>comments</h3>
+                <p>Leave comment?</p>
 
-                // pripremamo upit
-                $sql1 = "SELECT comments.author, comments.text, comments.post_id 
-                FROM comments INNER JOIN posts ON posts.id = comments.post_id";
-                $statement1 = $connection->prepare($sql1);
+                <form action="/action_page.php">
+                <textarea name="name" id="" cols="40" rows="1"></textarea>
+                <textarea name="text" id="" cols="40" rows="5"></textarea>
+                <input type="submit" value="Submit">
+                </form> 
+                <br>
 
-                // izvrsavamo upit
-                $statement1->execute();
-
-                // zelimo da se rezultat vrati kao asocijativni niz.
-                // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
-                $statement1->setFetchMode(PDO::FETCH_ASSOC);
-
-                // punimo promenjivu sa rezultatom upita
-                $comments = $statement1->fetchAll();
-
-                // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
-                    /*echo '<pre>';
-                    var_dump($comments);
-                    echo '</pre>';*/
-
-                ?>
-                    <div class="comments">
-                        <h3>comments</h3>
-                    <ul>
-                        <?php foreach($comments as $comment) {?>
-                        
-                        <!-- zameniti testne komentare sa pravim komentarima koji pripadaju blog post-u iz baze -->
-                        <li class="single-comment">
-                    
-                            <div>posted by: <strong><?php echo $comment['author'] ?></strong> </div>
-                            <div><?php echo $comment['text'] ?>
-                            </div>
-                        </li>
-                        <hr>
-                        <?php } ?>
-                    </ul>    
-                    </div>
-
-
-                <?php } ?>
-                
+                <?php include 'comments.php' ?>
                 </article>
                 </div>
                 <?php include 'sidebar.php' ?>
