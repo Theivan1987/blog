@@ -35,6 +35,12 @@
             <article class="va-c-article">
                 <header>
                     <h1><a href="single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h1>
+                    
+                    <form action="delete-post.php" method="POST">
+                        <input type="submit" value="Delete POST" onclick="myPrompt();">
+                        <input type="text" hidden name="postId" value=" <?php echo $post['id'];?> " >
+    
+                        </form>
 
                     <!-- zameniti  datum i ime sa pravim imenom i datumom blog post-a iz baze -->
                     <div class="va-c-article__meta"><?php echo($post['created_at']) ?> by <?php echo($post['author']) ?></div>
@@ -58,5 +64,12 @@
     </nav>
 
 </div><!-- /.blog-main -->
+
+<script>
+function myPrompt(){
+
+  confirm("Do you really want to delete this post?");
+}
+</script>
 
 

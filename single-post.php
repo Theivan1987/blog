@@ -68,12 +68,22 @@
                     
                 </div>
                 <h3>comments</h3>
-                <p>Leave comment?</p>
+                <p>Tell us your opinion...</p>
 
-                <form action="/action_page.php">
-                <textarea name="name" id="" cols="40" rows="1"></textarea>
-                <textarea name="text" id="" cols="40" rows="5"></textarea>
-                <input type="submit" value="Submit">
+                <?php
+                    $error = '';
+                    if (!empty($_GET['error'])) {
+                        $error = 'All fields are required';
+                    }
+                ?>
+                <form action="create-comment.php" method="POST">
+                    <?php if (!empty($error)) { ?>
+                        <span class="alert alert-danger"><?php echo $error; ?></span>
+                    <?php } ?>
+                    <textarea name="name" id="name" cols="40" rows="1" placeholder="Your name" ></textarea>
+                    <textarea name="comment" id="comment" cols="40" rows="5" placeholder="Comment"></textarea> <br>
+                    <input type="text" hidden name="postId" id="postId" value="<?php echo $_GET['post_id'];?>">
+                    <input type="submit" value="Submit">
                 </form> 
                 <br>
 

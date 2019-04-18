@@ -8,7 +8,7 @@ if (isset($_GET['post_id'])) {
 
 // pripremamo upit
 $postId = intval($_GET['post_id']);
-$sql1 = "SELECT comments.author, comments.text, comments.post_id 
+$sql1 = "SELECT comments.id, comments.author, comments.text, comments.post_id 
 FROM comments WHERE post_id = $postId;";
 $statement1 = $connection->prepare($sql1);
 
@@ -42,6 +42,12 @@ $comments = $statement1->fetchAll();
         <div>posted by: <strong><?php echo $comment['author'] ?></strong> </div>
         <div><?php echo $comment['text'] ?>
         </div>
+        <form action="delete-comment.php" method="POST">
+          <input type="submit" value="Delete comment">
+          <input type="text" hidden name="postId" value="<?php echo $_GET['post_id'];?>" >
+          <input type="text" hidden name="commentId" value="<?php echo $comment['id'];?>" >
+        </form>
+
     </li>
     <hr>
     </div>
@@ -73,6 +79,7 @@ function showHide () {
         }
     }
 }
+
 
 </script>
                 
